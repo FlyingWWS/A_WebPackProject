@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>测试</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#preview img{
+			width:100px;
+		}
+	</style>
+</head>
+<body>
+	<input id="browse" type="file" onchange="previewFiles()" multiple>
+<div id="preview"></div>
+<script type="text/javascript">
+	function previewFiles() {
+
+	  var preview = document.querySelector('#preview');
+	  var files   = document.querySelector('#browse').files;
+
+console.log(files);
+	  function readAndPreview(file) {
+
+	    // Make sure `file.name` matches our extensions criteria
+	    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+	      var reader = new FileReader();
+
+	      reader.addEventListener("load", function () {
+	        var image = new Image();
+	        image.height = 100;
+	        image.title = file.name;
+	        image.src = this.result;
+	        preview.appendChild( image );
+	        console.log(this);
+	      }, false);
+
+	      reader.readAsDataURL(file);
+	    }
+
+	  }
+
+	  if (files) {
+	    [].forEach.call(files, readAndPreview);
+	  }
+	}
+
+</script>
+</body>
+</html>
