@@ -1,49 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html style="font-size:100px">
 <head>
 	<title>测试</title>
 	<meta charset="utf-8">
 	<style type="text/css">
-		#preview img{
-			width:100px;
-		}
+
 	</style>
 </head>
 <body>
-	<input id="browse" type="file" onchange="previewFiles()" multiple>
-<div id="preview"></div>
-<script type="text/javascript">
-	function previewFiles() {
-
-	  var preview = document.querySelector('#preview');
-	  var files   = document.querySelector('#browse').files;
-
-console.log(files);
-	  function readAndPreview(file) {
-
-	    // Make sure `file.name` matches our extensions criteria
-	    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
-	      var reader = new FileReader();
-
-	      reader.addEventListener("load", function () {
-	        var image = new Image();
-	        image.height = 100;
-	        image.title = file.name;
-	        image.src = this.result;
-	        preview.appendChild( image );
-	        console.log(this);
-	      }, false);
-
-	      reader.readAsDataURL(file);
-	    }
-
-	  }
-
-	  if (files) {
-	    [].forEach.call(files, readAndPreview);
-	  }
-	}
-
-</script>
+	<img src="C:\Users\Administrator\Desktop\lazy.png" data-img="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492676415980&di=c661a89afe001b5b37e1dff9a758725a&imgtype=0&src=http%3A%2F%2Fimage48.360doc.com%2FDownloadImg%2F2011%2F12%2F2421%2F20271196_13.jpg">
+	<br><br>
+	<button id="btn">哈哈</button>
+	<br><br>
+	<img src="C:\Users\Administrator\Desktop\lazy.png" data-img="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492676420868&di=34ba8da7efa57eb4356ec7d5285b5ccf&imgtype=0&src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201210%2F21%2F20121021202014_kAAr3.thumb.600_0.jpeg">
 </body>
+<script type="text/javascript">
+	(function(){
+		var btn = document.getElementById('btn');
+		btn.addEventListener("click",function(){
+			
+		},false);
+	})();
+</script>
 </html>

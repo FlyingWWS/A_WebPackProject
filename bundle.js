@@ -74,50 +74,50 @@
 
 
 
-module.exports = function(global_webpack){
+module.exports = function (global_webpack) {
 	//global变量
 	var imgProcess = global_webpack.imgProcess = {};
 
 	//预览图片(单张)
 	// input.id : file  (必须)
 	// img.id : previewImg  （必须）
-	imgProcess.previewImgFile = function(){
-	    var input = document.getElementById("file");
-	    var previewImg = document.getElementById("previewImg");
-	    
-	    var file = input.files[0];
-	    // console.log(file);
+	imgProcess.previewImgFile = function () {
+		var input = document.getElementById("file");
+		var previewImg = document.getElementById("previewImg");
 
-	    if(!/image\/\w+/.test(file.type)){
-	        alert("文件必须为图片！");
-	        return false;
-	    }
+		var file = input.files[0];
+		// console.log(file);
 
-	    var reader = new FileReader();
-	    reader.addEventListener("load", function () {
-	    	// console.log(this);
-	        previewImg.src = this.result;
-		},  false);
+		if (!/image\/\w+/.test(file.type)) {
+			alert("文件必须为图片！");
+			return false;
+		}
 
-		if(file){
+		var reader = new FileReader();
+		reader.addEventListener("load", function () {
+			// console.log(this);
+			previewImg.src = this.result;
+		}, false);
+
+		if (file) {
 			reader.readAsDataURL(file);
 		}
-	}
+	};
 
 	//预览图片(多张)
 	// 注意：input 加 multiple属性 
 	// input.id : files  (必须)
 	// div.id : previewImgs  (必须)
-	imgProcess.previewImgFiles = function(){
+	imgProcess.previewImgFiles = function () {
 		var input = document.getElementById("files");
-	    var previewImgs = document.getElementById("previewImgs");
+		var previewImgs = document.getElementById("previewImgs");
 
-	    var files = input.files;
-	    console.log(files);
+		var files = input.files;
+		console.log(files);
 
-	    function readAndPreview(file) {
-	    	// Make sure `file.name` matches our extensions criteria
-		    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+		function readAndPreview(file) {
+			// Make sure `file.name` matches our extensions criteria
+			if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
 				var reader = new FileReader();
 
 				reader.addEventListener("load", function () {
@@ -126,18 +126,17 @@ module.exports = function(global_webpack){
 					image.title = file.name;
 					image.src = this.result;
 					previewImgs.appendChild(image);
-				},  false);
+				}, false);
 
-			    reader.readAsDataURL(file);
+				reader.readAsDataURL(file);
 			}
 		}
 
 		if (files) {
 			[].forEach.call(files, readAndPreview);
 		}
-	}
-}
-
+	};
+};
 
 /***/ }),
 /* 1 */
@@ -147,14 +146,14 @@ module.exports = function(global_webpack){
 
 
 
-module.exports = function(global_webpack){
+module.exports = function (global_webpack) {
 	//global
 	var lottery = global_webpack.lottery = {};
 
 	//刮刮卡  
 	// canvasID: 必须, 画布id;
 	// lineWidth: 必须, 滑线的宽度；
-	lottery.scratchCard = function(canvasID,lineWidth){
+	lottery.scratchCard = function (canvasID, lineWidth) {
 		console.log("simpleApp scratchCard 刮刮卡");
 
 		var isDown = false;
@@ -163,7 +162,7 @@ module.exports = function(global_webpack){
 		var c = document.getElementById(canvasID);
 		var ctx = c.getContext("2d");
 		var offsetX = c.offsetLeft;
-		var offsetY = c.offsetTop; 
+		var offsetY = c.offsetTop;
 
 		ctx.fillStyle = 'gray';
 		var c_width = c.width;
@@ -173,59 +172,59 @@ module.exports = function(global_webpack){
 		ctx.globalCompositeOperation = 'destination-out';
 		// ctx.fillRect(10,30,75,50);
 
-		function down(e){
+		function down(e) {
 			e.preventDefault();
 			isDown = true;
-			if(e.changedTouches){                         
-			    e=e.changedTouches[e.changedTouches.length-1];               
-			  } 
+			if (e.changedTouches) {
+				e = e.changedTouches[e.changedTouches.length - 1];
+			}
 			lastX = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0;;
 			lastY = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;;
 		}
-		function up(e){
+		function up(e) {
 			e.preventDefault();
 			isDown = false;
 		}
-		function move(e){
+		function move(e) {
 			e.preventDefault();
-			if(isDown){
-			  if(e.changedTouches){                         
-			    e=e.changedTouches[e.changedTouches.length-1];               
-			  } 
-			  var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0;                         
-			  var y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
-			  console.log(e.pageX+"---"+e.pageY);
-			  // console.log(x+"---"+y);
-			  // console.log(offsetX);
-			  // console.log(offsetY)
-			  draw(x,y,true);
+			if (isDown) {
+				if (e.changedTouches) {
+					e = e.changedTouches[e.changedTouches.length - 1];
+				}
+				var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0;
+				var y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
+				console.log(e.pageX + "---" + e.pageY);
+				// console.log(x+"---"+y);
+				// console.log(offsetX);
+				// console.log(offsetY)
+				draw(x, y, true);
 			}
 		}
-		function draw(x,y,isDown){
-			if(isDown){
-			  ctx.beginPath();
-			  ctx.lineWidth = lineWidth;
-			  ctx.lineJoin = "round";
-			  ctx.moveTo(lastX, lastY);
-			  ctx.lineTo(x, y);
-			  ctx.closePath();
-			  ctx.stroke();
+		function draw(x, y, isDown) {
+			if (isDown) {
+				ctx.beginPath();
+				ctx.lineWidth = lineWidth;
+				ctx.lineJoin = "round";
+				ctx.moveTo(lastX, lastY);
+				ctx.lineTo(x, y);
+				ctx.closePath();
+				ctx.stroke();
 			}
 			lastX = x;
 			lastY = y;
 		}
 
-		c.addEventListener("touchstart",down,false);
-		c.addEventListener("touchmove",move,false);
-		c.addEventListener("touchend",up,false);
-		c.addEventListener("touchleave",up,false);
+		c.addEventListener("touchstart", down, false);
+		c.addEventListener("touchmove", move, false);
+		c.addEventListener("touchend", up, false);
+		c.addEventListener("touchleave", up, false);
 
-		c.addEventListener("mousedown",down,false);
-		c.addEventListener("mousemove",move,false);
-		c.addEventListener("mouseup",up,false);
-		c.addEventListener("mouseleave",up,false);
-	}
-}
+		c.addEventListener("mousedown", down, false);
+		c.addEventListener("mousemove", move, false);
+		c.addEventListener("mouseup", up, false);
+		c.addEventListener("mouseleave", up, false);
+	};
+};
 
 /***/ }),
 /* 2 */

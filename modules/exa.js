@@ -9,3 +9,13 @@ document.write("<h1> Less </h1>");
 // }
 
 // module.exports = exa;
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+}
