@@ -9,6 +9,8 @@ module.exports = function(global_webpack){
 	// input.id : file  (必须)
 	// img.id : previewImg  （必须）
 	imgProcess.previewImgFile = function(){
+		console.log("ImgProcess imgProcess.previewImgFile 预览单张图片");
+
 	    var input = document.getElementById("file");
 	    var previewImg = document.getElementById("previewImg");
 	    
@@ -36,6 +38,8 @@ module.exports = function(global_webpack){
 	// input.id : files  (必须)
 	// div.id : previewImgs  (必须)
 	imgProcess.previewImgFiles = function(){
+		console.log("ImgProcess imgProcess.previewImgFiles 预览多张图片");
+
 		var input = document.getElementById("files");
 	    var previewImgs = document.getElementById("previewImgs");
 

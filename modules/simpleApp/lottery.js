@@ -9,7 +9,7 @@ module.exports = function(global_webpack){
 	// canvasID: 必须, 画布id;
 	// lineWidth: 必须, 滑线的宽度；
 	lottery.scratchCard = function(canvasID,lineWidth){
-		console.log("simpleApp scratchCard 刮刮卡");
+		console.log("simpleApp lottery.scratchCard 刮刮卡");
 
 		var isDown = false;
 		var lastX;
