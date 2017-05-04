@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -82,6 +82,8 @@ module.exports = function (global_webpack) {
 	// input.id : file  (必须)
 	// img.id : previewImg  （必须）
 	imgProcess.previewImgFile = function () {
+		console.log("ImgProcess imgProcess.previewImgFile 预览单张图片");
+
 		var input = document.getElementById("file");
 		var previewImg = document.getElementById("previewImg");
 
@@ -109,6 +111,8 @@ module.exports = function (global_webpack) {
 	// input.id : files  (必须)
 	// div.id : previewImgs  (必须)
 	imgProcess.previewImgFiles = function () {
+		console.log("ImgProcess imgProcess.previewImgFiles 预览多张图片");
+
 		var input = document.getElementById("files");
 		var previewImgs = document.getElementById("previewImgs");
 
@@ -148,13 +152,79 @@ module.exports = function (global_webpack) {
 
 module.exports = function (global_webpack) {
 	//global
+	var lazyload = global_webpack.lazyload = {};
+
+	//图片懒加载
+	//attr: 必须,需要懒加载的图片属性;值填真实的url;
+	//例：<img src="fake.png" data-img="true.png">
+	lazyload.imgload = function (attrVal) {
+		console.log("simpleApp lazyload.imgload 图片懒加载");
+
+		//元素是否在可视区域
+		var isInView = function isInView(el) {
+			var offset = el.offset || 0;
+			// 获取页面元素坐标位置
+			var coords = el.getBoundingClientRect();
+			var a = coords.top >= 0 && coords.left >= 0 && coords.top;
+			var b = (window.innerHeight || document.documentElement.clientHeight) + parseInt(offset);
+			// console.log(a);
+			// console.log(b);
+			// console.log(a<=b); //true表示已经替换过了
+			// console.log("+++");
+			return a <= b;
+		};
+		var isDeal = function isDeal(el) {
+			return el.getAttribute('src') !== el.getAttribute(attrVal);
+		};
+		var lazyImg = function lazyImg() {
+			var imgs = document.querySelectorAll("img[" + attrVal + "]");
+			var len = imgs.length;
+			for (var i = 0; i < len; i++) {
+				var img = imgs[i];
+				//获取页面元素位置
+				var rect = img.getBoundingClientRect();
+				// console.log(rect.top);
+				// console.log(document.documentElement.clientTop);
+				var viewHeight = document.documentElement.clientHeight;
+				// console.log("viewHeight:"+viewHeight);
+				// isInView(img);
+				if (img.getAttribute(attrVal) === '') return;
+				//是否在可视区域 是否已经替换过
+				if (isInView(img) && isDeal(img)) {
+					var src = img.getAttribute(attrVal);
+					console.log(src);
+					console.log("----------");
+					img.setAttribute('src', src);
+				}
+			}
+		};
+
+		lazyImg();
+		if (document.addEventListener) {
+			window.addEventListener('scroll', lazyImg, false);
+		} else {
+			window.attachEvent('onscroll', lazyImg);
+		}
+	};
+};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+
+module.exports = function (global_webpack) {
+	//global
 	var lottery = global_webpack.lottery = {};
 
 	//刮刮卡  
 	// canvasID: 必须, 画布id;
 	// lineWidth: 必须, 滑线的宽度；
 	lottery.scratchCard = function (canvasID, lineWidth) {
-		console.log("simpleApp scratchCard 刮刮卡");
+		console.log("simpleApp lottery.scratchCard 刮刮卡");
 
 		var isDown = false;
 		var lastX;
@@ -227,7 +297,7 @@ module.exports = function (global_webpack) {
 };
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -239,8 +309,12 @@ var global_webpack = {};
 
 //global_webpack.imgProcess  图片处理：图片预览
 __webpack_require__(0)(global_webpack);
-//global_webpack.lottery  刮刮卡
+//global_webpack.lazyload  图片懒加载
 __webpack_require__(1)(global_webpack);
+
+//global_webpack.lottery  刮刮卡
+__webpack_require__(2)(global_webpack);
+
 
 //global
 window.global_webpack = module.exports =  global_webpack;
