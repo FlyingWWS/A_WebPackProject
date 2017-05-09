@@ -6,30 +6,10 @@
 	<script type="text/javascript" src="bundle.js"></script>
 </head>
 <body>
-	<!-- 预览单张图片 -->
-	<input type="file" id="file" onchange="global_webpack.imgProcess.previewImgFile()">
-	<br>
-    <img id="previewImg" src="" height="200" alt="Img preview ...">
-    <br>
-    <!-- 预览多张图片 -->
-    <input type="file" id="files" onchange="global_webpack.imgProcess.previewImgFiles()" multiple>
-    <div id="previewImgs" style="width:300px;height:200px;border: 1px dashed;"></div>
-    <br>
-    <!-- 抽奖 刮刮乐 -->
-    <canvas style="border:1px solid;background: url('http://p1.so.qhimgs1.com/sdr/600_768_/t01b235a584e0d7ea2d.jpg')no-repeat; background-size: 100%;" id="gglc" width="400" height="300"></canvas>
-    <br>
-
-<img style="width:300px;" src="C:\Users\Administrator\Desktop\lazy.png" data-img="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492676415980&di=c661a89afe001b5b37e1dff9a758725a&imgtype=0&src=http%3A%2F%2Fimage48.360doc.com%2FDownloadImg%2F2011%2F12%2F2421%2F20271196_13.jpg">
-    <br><br>
-    <button id="btn">哈哈</button>
-    <br><br><br><br><br><br>
-    <img style="width:300px;" src="C:\Users\Administrator\Desktop\lazy.png" data-img="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492676420868&di=34ba8da7efa57eb4356ec7d5285b5ccf&imgtype=0&src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201210%2F21%2F20121021202014_kAAr3.thumb.600_0.jpeg">
-    <script type="text/javascript">
-    	console.log(global_webpack);
-        document.getElementById("gglc").style.backgroundImage = 'url(http://p0.so.qhmsg.com/bdr/326__/t0168220987228a2f8f.jpg)';
-        global_webpack.lottery.scratchCard("gglc",20);
-
-        global_webpack.lazyload.imgload("data-img");
-    </script>
+	<ul>
+        <li><a href="html/imgProcess.html">图片预览</a></li>
+        <li><a href="html/lazyLoad.html">图片懒加载</a></li>
+        <li><a href="html/lottery.html">抽奖刮刮乐</a></li>   
+    </ul>
 </body>
 </html>

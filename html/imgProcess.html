@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>imgProcess</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="../bundle.js"></script>
+</head>
+<body>
+	<!-- 预览单张图片 -->
+	<input type="file" id="file" onchange="global_webpack.imgProcess.previewImgFile()">
+	<br>
+    <img id="previewImg" src="" height="200" alt="Img preview ...">
+    <br>
+    <!-- 预览多张图片 -->
+    <input type="file" id="files" onchange="global_webpack.imgProcess.previewImgFiles()" multiple>
+    <div id="previewImgs" style="width:300px;height:200px;border: 1px dashed;"></div>
+    <br>
+
+</body>
+</html>
